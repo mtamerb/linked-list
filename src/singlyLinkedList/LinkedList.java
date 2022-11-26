@@ -4,8 +4,8 @@ public class LinkedList {
 
     public Node head = null;
 
-    class Node {
-        private int data;
+    static class Node {
+        private final int data;
         private Node next;
 
         public Node(int data) {
@@ -15,7 +15,7 @@ public class LinkedList {
 
     }
 
-    Node current, prev, temp;
+    Node current, prev;
 
     public void addNodeAtTheBeginning(int data) {
         Node newNode = new Node(data);
@@ -54,68 +54,6 @@ public class LinkedList {
         prev.next = newNode;
         newNode.next = current;
 
-    }
-
-
-    public void deleteFirstNode() {
-        if (head != null) {
-            head = head.next;
-        }
-    }
-
-    public Node deleteLastNode() {
-        if (head == null) {
-            return null;
-        }
-        if (head.next == null) {
-            head = null;
-            return null;
-        }
-        Node secondLast = head;
-        while (secondLast.next.next != null) {
-            secondLast = secondLast.next;
-        }
-        secondLast.next = null;
-        return head;
-    }
-
-    public void findNode(int item) {
-        boolean found = false;
-        int pos = 0;
-        if (head == null) {
-            System.out.println("List is empty");
-        } else {
-            while (head != null) {
-                if (head.data == item) {
-                    found = true;
-                    break;
-                }
-                pos++;
-                head = head.next;
-            }
-        }
-        if (found) {
-            System.out.println("item : " + item + " is present in the list at the index : " + pos);
-        } else {
-            System.out.println("item is not present in the list");
-        }
-    }
-
-    public void deleteKeyNode(int key) {
-        Node prev = null;
-        temp = head;
-        if (temp == null) {
-            return;
-        }
-        if (temp != null && temp.data == key) {
-            head = temp.next;
-            return;
-        }
-        while (temp != null && temp.data != key) {
-            prev = temp;
-            temp = temp.next;
-        }
-        prev.next = temp.next;
     }
 
 
