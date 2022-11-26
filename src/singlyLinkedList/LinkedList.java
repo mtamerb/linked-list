@@ -1,54 +1,61 @@
 package singlyLinkedList;
 
 public class LinkedList {
+
+    public Node head = null;
+
     class Node {
-        int data;
-        Node next;
+        private int data;
+        private Node next;
 
         public Node(int data) {
             this.data = data;
             this.next = null;
         }
+
     }
 
-    public Node head = null;
-    public Node tail = null;
+    Node current, prev, temp;
 
-    public void addNode(int data) {
+    public void addNodeAtTheBeginning(int data) {
         Node newNode = new Node(data);
-        if (head == null) {
-            head = newNode;
-            tail = newNode;
-        } else {
-            tail.next = newNode;
-            tail = newNode;
-        }
+        newNode.next = this.head;
+        this.head = newNode;
     }
 
-    Node current, index, temp;
+    public void addNodeAtTheEnd(int data) {
+        Node newNode = new Node(data);
+        current = this.head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
 
-    public void removeDuplicateNodes() {
-        current = head;
-        index = null;
-        temp = null;
-        if (head == null) {
+    public void addNodeAtTheSpecificPosition(int position, int data) {
+        if (position == 0) {
+            System.out.println("Position must on or greater than 0");
+            addNodeAtTheSpecificPosition(1, data);
             return;
-        } else {
-            while (current != null) {
-                temp = current;
-                index = current.next;
-                while (index != null) {
-                    if (current.data == index.data) {
-                        temp.next = index.next;
-                    } else {
-                        temp = index;
-                    }
-                    index = index.next;
-                }
-                current = current.next;
-            }
         }
+        System.out.println("Add a node with data " + data + " at the position " + position);
+        Node newNode = new Node(data);
+        current = this.head;
+        prev = this.head;
+        if (position == 1) {
+            newNode.next = this.head;
+            this.head = newNode;
+            return;
+        }
+        while (current.next != null && --position > 0) {
+            prev = current;
+            current = current.next;
+        }
+        prev.next = newNode;
+        newNode.next = current;
+
     }
+
 
     public void deleteFirstNode() {
         if (head != null) {
@@ -111,44 +118,31 @@ public class LinkedList {
         prev.next = temp.next;
     }
 
+
     public void print() {
-        Node current = head;
+        current = this.head;
         if (current == null) {
             System.out.println("List is empty");
-            return;
+        } else {
+            System.out.println("Nodes of singly linked list: ");
+            while (current != null) {
+                System.out.print(current.data + " -> ");
+                current = current.next;
+            }
+            System.out.println("NULL\n");
         }
-        while (current != null) {
-            System.out.print(current.data + " ");
-            current = current.next;
-        }
-        System.out.println();
     }
 
     public static void main(String[] args) {
-        LinkedList listDuplicate = new LinkedList();
-        listDuplicate.addNode(1);
-        listDuplicate.addNode(2);
-        listDuplicate.addNode(3);
-        listDuplicate.addNode(4);
-        listDuplicate.addNode(5);
-        listDuplicate.addNode(6);
-        listDuplicate.addNode(7);
-        listDuplicate.addNode(4);
-        listDuplicate.addNode(5);
-        listDuplicate.addNode(6);
-        listDuplicate.addNode(7);
-        listDuplicate.addNode(4);
-        listDuplicate.addNode(5);
-        listDuplicate.addNode(6);
-        listDuplicate.addNode(7);
-        System.out.println("Original List : ");
-        listDuplicate.print();
-        listDuplicate.removeDuplicateNodes();
-        System.out.println("List after removing duplicates : ");
-        listDuplicate.print();
-        listDuplicate.deleteKeyNode(3);
-        System.out.println("List after delete specific node : ");
-        listDuplicate.print();
+        LinkedList linkedList = new LinkedList();
+        linkedList.addNodeAtTheBeginning(10);
+        linkedList.addNodeAtTheEnd(20);
+        linkedList.addNodeAtTheEnd(30);
+        linkedList.addNodeAtTheEnd(40);
+        linkedList.addNodeAtTheSpecificPosition(0, 15);
+        linkedList.addNodeAtTheSpecificPosition(3, 50);
+        linkedList.print();
+
     }
 
 }
