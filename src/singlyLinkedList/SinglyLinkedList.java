@@ -26,10 +26,14 @@ public class SinglyLinkedList {
     public void addNodeAtTheEnd(int data) {
         Node newNode = new Node(data);
         current = this.head;
-        while (current.next != null) {
-            current = current.next;
+        if (this.head == null) {
+            this.head = newNode;
+        } else {
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
         }
-        current.next = newNode;
     }
 
     public void addNodeAtTheSpecificPosition(int position, int data) {
@@ -56,6 +60,29 @@ public class SinglyLinkedList {
 
     }
 
+    public void deleteNode(int data) {
+        System.out.println("Deleting First Occurrence of data " + data + " from the list");
+        if (this.head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        current = this.head;
+        prev = this.head;
+        if (current.data == data) {
+            this.head = current.next;
+            return;
+        }
+        while (current != null && current.data != data) {
+            prev = current;
+            current = current.next;
+        }
+        if (current != null) {
+            prev.next = current.next;
+        } else {
+            System.out.println("Node with data " + data + " not found");
+        }
+
+    }
 
     public void print() {
         current = this.head;
@@ -77,8 +104,10 @@ public class SinglyLinkedList {
         linkedList.addNodeAtTheEnd(20);
         linkedList.addNodeAtTheEnd(30);
         linkedList.addNodeAtTheEnd(40);
-        linkedList.addNodeAtTheSpecificPosition(0, 15);
         linkedList.addNodeAtTheSpecificPosition(3, 50);
+        linkedList.print();
+        linkedList.deleteNode(50);
+        System.out.println("After deleting node with data ");
         linkedList.print();
 
     }
