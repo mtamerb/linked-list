@@ -1,6 +1,6 @@
 package singlyLinkedList;
 
-public class LinkedList {
+public class SinglyLinkedList {
 
     public Node head = null;
 
@@ -72,7 +72,7 @@ public class LinkedList {
     }
 
     public static void main(String[] args) {
-        LinkedList linkedList = new LinkedList();
+        SinglyLinkedList linkedList = new SinglyLinkedList();
         linkedList.addNodeAtTheBeginning(10);
         linkedList.addNodeAtTheEnd(20);
         linkedList.addNodeAtTheEnd(30);
